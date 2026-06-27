@@ -3,58 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Vids TV - Welcome!</title>
-    <!-- Link to external CSS styling -->
+    <title>Kids Vids TV - Kingdom Portal</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Identity Services Script -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Canvas Confetti for interactive rewards -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <!-- MAIN CARD: Rounded rectangle container -->
     <div class="main-card">
         
-        <!-- PAGE 1: START / LOGIN SCREEN -->
+        <!-- ================= PAGE 1: LOGIN SCREEN ================= -->
         <div id="loginPage" class="grid-mask">
-            <!-- Left Side of Grid: Media Asset Area -->
             <div class="avatar-zone">
-                <!-- Replace 'avatar.png' with your actual profile picture file name later -->
                 <img src="avatar.png" alt="Kids Vids TV Mascot" class="profile-pic">
             </div>
             
-            <!-- Right Side of Grid: Interaction Area -->
             <div class="action-zone">
                 <h1 class="brand-title">Kids Vids <span class="highlight-pink">TV</span></h1>
-                <p class="sub-text">Welcome friend! Ready to enter the <span class="highlight-yellow">banana kingdom</span>? 🍌</p>
+                <p class="sub-text">Welcome friend! Ready to enter the official <span class="highlight-yellow">banana kingdom</span>? 🍌</p>
                 
                 <div class="button-group">
-                    <!-- Standard Guest Sign-In -->
-                    <button class="btn btn-primary" onclick="handleGuestLogin()">Let's Play! 🚀</button>
-                    
-                    <!-- Google Identity Services Button Placeholder -->
-                    <div id="googleSignInButton" class="google-btn-wrapper">
-                        <button class="btn btn-google" onclick="handleGoogleLogin()">
-                            <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google Logo" class="g-icon">
-                            Sign in with Google
-                        </button>
-                    </div>
+                    <button class="btn btn-primary" onclick="handleGuestLogin()">Play as Guest! 🚀</button>
+                    <div id="googleBtnParent"></div>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 2: DASHBOARD / ABOUT SCREEN (Hidden by default) -->
+        <!-- ================= PAGE 2: DASHBOARD ================= -->
         <div id="mainPage" class="hidden animate-fade">
-            <h1 id="welcomeTitle" class="brand-title">Welcome to Kids Vids TV!</h1>
+            <div class="dashboard-header">
+                <h1 id="welcomeTitle" class="brand-title">Welcome Back!</h1>
+                <button class="btn-logout" onclick="handleLogout()">Log Out 🚪</button>
+            </div>
             <div class="badge">Est. 2026</div>
             
-            <div class="about-content">
+            <!-- Navigation Tabs for New Systems -->
+            <div class="tab-menu">
+                <button class="tab-btn active" onclick="switchTab('about')">About Us</button>
+                <button class="tab-btn" onclick="switchTab('ideas')">Idea Generator</button>
+                <button class="tab-btn" onclick="switchTab('docs')">Creator Docs</button>
+            </div>
+
+            <!-- TAB 1: ABOUT US SECTION -->
+            <div id="aboutTab" class="tab-content">
                 <p>
                     Welcome to <span class="highlight-pink">Kids Vids TV</span>, the brightest spot on the internet for fun, learning, and bright <span class="highlight-blue">pastel adventures</span>! Guided by our official mascot, <span class="highlight-yellow">Nano Banana</span>, we create magical animations, playful stories, and interactive videos designed just for children.
                 </p>
-                <p>
-                    Whether you love bright yellow bananas, cute colorful hats, or singing along to cool tracks, you are exactly where you belong!
-                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-emoji">🍌</span>
+                        <h4 id="bananaCount">0</h4>
+                        <p>Bananas Collected</p>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-emoji">⭐️</span>
+                        <h4 id="levelCount">Level 1</h4>
+                        <p>Explorer Rank</p>
+                    </div>
+                </div>
+
+                <div class="interactive-zone">
+                    <h3>Claim Your Daily Reward!</h3>
+                    <button class="btn-sound" onclick="triggerMascotReward()">Press Nano Banana! 🍌✨</button>
+                    <p id="rewardMessage" class="reward-text"></p>
+                </div>
             </div>
 
-            <!-- Social Media Section (Stays strictly code font) -->
+            <!-- TAB 2: POST & VIDEO IDEA GENERATOR -->
+            <div id="ideasTab" class="tab-content hidden">
+                <h3>Video Concept Studio</h3>
+                <p class="sub-text">Need inspiration for your next viral video or community post? Click below to spark an idea!</p>
+                
+                <div class="idea-display-box">
+                    <h4 id="ideaTitle">Ready to brainstorm?</h4>
+                    <p id="ideaDesc">Click the generator button below to cook up a pastel animation theme.</p>
+                </div>
+                
+                <button class="btn btn-primary" onclick="generateContentIdea()">Generate New Idea! 💡</button>
+            </div>
+
+            <!-- TAB 3: CREATOR DOCUMENTATION HUBS -->
+            <div id="docsTab" class="tab-content hidden">
+                <h3>Production Documentation</h3>
+                <p class="sub-text">Channel guides, branding setups, and assets rules for Kids Vids TV.</p>
+                
+                <div class="docs-accordion">
+                    <div class="doc-card">
+                        <h5>🎨 Brand Identity Guidelines</h5>
+                        <p>All core graphics must utilize high-vibrancy pastel colors. Primary brand fonts should default to rounded sans-serif variants. Elements should maximize padding and curves, completely omitting sharp corners or jagged styles.</p>
+                    </div>
+                    <div class="doc-card">
+                        <h5>🎬 YouTube Upload Checklist</h5>
+                        <ul>
+                            <li>Verify video overlay includes the official Est. 2026 cute corner watermark.</li>
+                            <li>Set content category markers precisely to "Made for Kids" inside YouTube Studio.</li>
+                            <li>Add the primary subscription anchor link inside the video description card.</li>
+                        </ul>
+                    </div>
+                    <div class="doc-card">
+                        <h5>📦 Technical Stack & Hosting</h5>
+                        <p>The frontend portal operates statically across local structures and Vercel cloud architecture. Core logic functions cleanly through asynchronous JavaScript loops and handles login tokens natively via Google Identity Services frameworks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOCIAL MEDIA (Strictly Monospace Code Font) -->
             <div class="social-section">
                 <h3>Find us here:</h3>
                 <a href="https://www.youtube.com/@KidVids-TV?sub_confirmation=1" target="_blank" class="code-link">
@@ -65,7 +121,6 @@
 
     </div>
 
-    <!-- Link to external JS Logic -->
     <script src="app.js"></script>
 </body>
 </html>

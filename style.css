@@ -1,0 +1,220 @@
+/* --- Global Reset & Playful Pastel Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffe5ec 0%, #fff9db 50%, #e8f0fe 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4a4a4a;
+    padding: 20px;
+}
+
+/* --- The Main Smooth Rectangle --- */
+.main-card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 8px solid #b3e5fc;
+    border-radius: 40px; /* Perfectly smooth, unsharp corners */
+    padding: 40px;
+    width: 100%;
+    max-width: 750px;
+    box-shadow: 0 20px 40px rgba(255, 182, 193, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Grid Masking (Start Screen Layout) --- */
+.grid-mask {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .grid-mask {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+/* --- Avatar Visual Elements --- */
+.avatar-zone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #fff9c4 0%, rgba(255,255,255,0) 70%);
+    padding: 20px;
+}
+
+.profile-pic {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    border-radius: 30px; /* Rounded corners for the profile pic */
+    border: 5px solid #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    background-color: #fff;
+}
+
+/* --- Typography & Visual Highlights --- */
+.brand-title {
+    color: #ff6b8b;
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 0px #fff, 4px 4px 0px #b3e5fc;
+}
+
+.sub-text {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #616161;
+}
+
+/* Highlighter Styles */
+.highlight-pink {
+    background: linear-gradient(120deg, rgba(255,107,139,0.2) 0%, rgba(255,107,139,0.2) 100%);
+    padding: 0 8px;
+    border-radius: 10px;
+    color: #ff477e;
+}
+
+.highlight-yellow {
+    background: linear-gradient(120deg, #fff59d 0%, #fff59d 100%);
+    padding: 0 8px;
+    border-radius: 10px;
+    color: #f57f17;
+}
+
+.highlight-blue {
+    background: linear-gradient(120deg, #b3e5fc 0%, #b3e5fc 100%);
+    padding: 0 8px;
+    border-radius: 10px;
+    color: #0288d1;
+}
+
+/* --- Buttons & UI Inputs --- */
+.button-group {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    width: 100%;
+    padding: 16px 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px; /* Pill shape, no sharp corners */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    background-color: #ffcb05;
+    color: #4a4a4a;
+    box-shadow: 0 6px 0px #d4a700;
+}
+
+.btn-primary:hover {
+    background-color: #ffe066;
+}
+
+.btn-primary:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0px #d4a700;
+}
+
+/* Cute Custom Google Button Style */
+.btn-google {
+    background-color: #ffffff;
+    color: #757575;
+    border: 3px solid #e0e0e0;
+    box-shadow: 0 4px 0px #e0e0e0;
+    font-size: 1.1rem;
+}
+
+.btn-google:hover {
+    background-color: #fafafa;
+    border-color: #bdbdbd;
+}
+
+.btn-google:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px #bdbdbd;
+}
+
+.g-icon {
+    width: 22px;
+    height: 22px;
+}
+
+/* --- Dashboard Elements --- */
+.badge {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+    padding: 6px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.about-content p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* Social Media - Strictly Monospace Code Formatting */
+.social-section {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 4px dashed #ffe5ec;
+}
+
+.social-section h3 {
+    color: #6c5ce7;
+    margin-bottom: 15px;
+}
+
+.code-link {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: #ff0000;
+    text-decoration: none;
+    background: #f7f7f7;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-all;
+}
+
+/* --- Structural Utility Helpers --- */
+.hidden {
+    display: none !important;
+}
+
+.animate-fade {
+    animation: fadeIn 0.5s ease forward;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

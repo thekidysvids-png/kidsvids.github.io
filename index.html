@@ -1,1 +1,71 @@
-site test : check validated ✅
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Vids TV - Welcome!</title>
+    <!-- Link to external CSS styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- MAIN CARD: Rounded rectangle container -->
+    <div class="main-card">
+        
+        <!-- PAGE 1: START / LOGIN SCREEN -->
+        <div id="loginPage" class="grid-mask">
+            <!-- Left Side of Grid: Media Asset Area -->
+            <div class="avatar-zone">
+                <!-- Replace 'avatar.png' with your actual profile picture file name later -->
+                <img src="avatar.png" alt="Kids Vids TV Mascot" class="profile-pic">
+            </div>
+            
+            <!-- Right Side of Grid: Interaction Area -->
+            <div class="action-zone">
+                <h1 class="brand-title">Kids Vids <span class="highlight-pink">TV</span></h1>
+                <p class="sub-text">Welcome friend! Ready to enter the <span class="highlight-yellow">banana kingdom</span>? 🍌</p>
+                
+                <div class="button-group">
+                    <!-- Standard Guest Sign-In -->
+                    <button class="btn btn-primary" onclick="handleGuestLogin()">Let's Play! 🚀</button>
+                    
+                    <!-- Google Identity Services Button Placeholder -->
+                    <div id="googleSignInButton" class="google-btn-wrapper">
+                        <button class="btn btn-google" onclick="handleGoogleLogin()">
+                            <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google Logo" class="g-icon">
+                            Sign in with Google
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 2: DASHBOARD / ABOUT SCREEN (Hidden by default) -->
+        <div id="mainPage" class="hidden animate-fade">
+            <h1 id="welcomeTitle" class="brand-title">Welcome to Kids Vids TV!</h1>
+            <div class="badge">Est. 2026</div>
+            
+            <div class="about-content">
+                <p>
+                    Welcome to <span class="highlight-pink">Kids Vids TV</span>, the brightest spot on the internet for fun, learning, and bright <span class="highlight-blue">pastel adventures</span>! Guided by our official mascot, <span class="highlight-yellow">Nano Banana</span>, we create magical animations, playful stories, and interactive videos designed just for children.
+                </p>
+                <p>
+                    Whether you love bright yellow bananas, cute colorful hats, or singing along to cool tracks, you are exactly where you belong!
+                </p>
+            </div>
+
+            <!-- Social Media Section (Stays strictly code font) -->
+            <div class="social-section">
+                <h3>Find us here:</h3>
+                <a href="https://www.youtube.com/@KidVids-TV?sub_confirmation=1" target="_blank" class="code-link">
+                    &lt;a href="https://www.youtube.com/@KidVids-TV?sub_confirmation=1" class="youtube-channel"&gt;YouTube&lt;/a&gt;
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Link to external JS Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

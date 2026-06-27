@@ -4,11 +4,331 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kids Vids TV - Kingdom Portal</title>
-    <link rel="stylesheet" href="style.css">
+    
     <!-- Google Identity Services Script -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- Canvas Confetti for interactive rewards -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- ================= STYLE SHEET (CSS) ================= -->
+    <style>
+        /* --- Global Playful Pastel Base with Grid Design --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #4a4a4a;
+            padding: 20px;
+            
+            /* Dual-Layer Interlocking Pastel Grid Background */
+            background: linear-gradient(135deg, #ffe5ec 0%, #fffbf0 50%, #e8f0fe 100%);
+            background-image: 
+                linear-gradient(rgba(179, 229, 252, 0.25) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(179, 229, 252, 0.25) 2px, transparent 2px),
+                linear-gradient(rgba(255, 229, 236, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 229, 236, 0.4) 1px, transparent 1px);
+            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+        }
+
+        /* --- The Main Smooth Rectangle Container --- */
+        .main-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 8px solid #b3e5fc;
+            border-radius: 40px;
+            padding: 40px;
+            width: 100%;
+            max-width: 750px;
+            box-shadow: 0 20px 40px rgba(255, 182, 193, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- Grid Masking (Layout Split) --- */
+        .grid-mask {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        @media (max-width: 600px) {
+            .grid-mask {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .avatar-zone {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #fff9c4 0%, rgba(255,255,255,0) 70%);
+            padding: 10px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            max-width: 240px;
+            height: auto;
+            border-radius: 30px;
+            border: 5px solid #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        /* --- Typography & Highlights --- */
+        .brand-title {
+            color: #ff6b8b;
+            font-size: 2.6rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #fff, 4px 4px 0px #b3e5fc;
+        }
+
+        .sub-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #757575;
+            margin-bottom: 15px;
+        }
+
+        .highlight-pink { background: rgba(255,107,139,0.2); padding: 0 6px; border-radius: 8px; color: #ff477e; }
+        .highlight-yellow { background: #fff59d; padding: 0 6px; border-radius: 8px; color: #f57f17; }
+        .highlight-blue { background: #b3e5fc; padding: 0 6px; border-radius: 8px; color: #0288d1; }
+
+        /* --- Tab Navigation Styling --- */
+        .tab-menu {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #a0a0a0;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: #ff6b8b;
+            background-color: #ffe5ec;
+        }
+
+        .tab-btn.active {
+            color: white;
+            background-color: #ff6b8b;
+            box-shadow: 0 4px 0 #d84360;
+        }
+
+        /* --- Idea Generator Display Module --- */
+        .idea-display-box {
+            background-color: #f3f9ff;
+            border: 3px solid #b3e5fc;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .idea-display-box h4 {
+            color: #0288d1;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- NEW FEATURE: AI Chat Interface --- */
+        .chat-box {
+            background: #fff;
+            border: 4px solid #ffe5ec;
+            border-radius: 25px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .msg {
+            padding: 10px 14px;
+            border-radius: 18px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+
+        .msg.user {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .msg.ai {
+            background-color: #fff9c4;
+            color: #f57f17;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            border-top: 3px solid #ffe5ec;
+            padding: 5px;
+            background: #fafafa;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: none;
+            padding: 10px 15px;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .chat-send-btn {
+            background: #ff6b8b;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- Documentation Content Nodes --- */
+        .docs-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .doc-card {
+            background-color: #fafafa;
+            border-left: 6px solid #6c5ce7;
+            padding: 15px;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .doc-card h5 {
+            font-size: 1.1rem;
+            color: #6c5ce7;
+            margin-bottom: 8px;
+        }
+
+        /* --- Interactive Dashboard Features --- */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .badge {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-box {
+            background: #fbfbfb;
+            border: 3px solid #e8f0fe;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-emoji { font-size: 2rem; display: block; margin-bottom: 5px; }
+
+        .interactive-zone {
+            background: #fffde7;
+            border: 4px dashed #ffcb05;
+            border-radius: 25px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        /* --- Buttons & UI Systems --- */
+        .button-group {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary { background-color: #ffcb05; color: #4a4a4a; box-shadow: 0 5px 0 #d4a700; }
+        .btn-primary:active { transform: translateY(5px); box-shadow: none; }
+        .btn-logout { background-color: #ff8a80; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; }
+
+        /* --- Social Section --- */
+        .social-section { margin-top: 30px; padding-top: 20px; border-top: 4px dashed #ffe5ec; }
+        .code-link {
+            font-family: 'Courier New', Courier, monospace !important;
+            font-weight: bold;
+            color: #ff0000;
+            text-decoration: none;
+            background: #f7f7f7;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            display: inline-block;
+            word-break: break-all;
+            font-size: 0.95rem;
+        }
+
+        .hidden { display: none !important; }
+        .animate-fade { animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
 </head>
 <body>
 
@@ -39,11 +359,12 @@
             </div>
             <div class="badge">Est. 2026</div>
             
-            <!-- Navigation Tabs for New Systems -->
+            <!-- Navigation Tabs -->
             <div class="tab-menu">
                 <button class="tab-btn active" onclick="switchTab('about')">About Us</button>
-                <button class="tab-btn" onclick="switchTab('ideas')">Idea Generator</button>
-                <button class="tab-btn" onclick="switchTab('docs')">Creator Docs</button>
+                <button class="tab-btn" onclick="switchTab('ai')">Nano AI Bot 🤖</button>
+                <button class="tab-btn" onclick="switchTab('ideas')">Ideas</button>
+                <button class="tab-btn" onclick="switchTab('docs')">Docs</button>
             </div>
 
             <!-- TAB 1: ABOUT US SECTION -->
@@ -72,7 +393,23 @@
                 </div>
             </div>
 
-            <!-- TAB 2: POST & VIDEO IDEA GENERATOR -->
+            <!-- NEW TAB 2: BUILT-IN NANO AI BOT -->
+            <div id="aiTab" class="tab-content hidden">
+                <h3>Chat with Nano Banana AI!</h3>
+                <p class="sub-text">Ask Nano Banana anything about video schedules, branding, or color secrets!</p>
+                
+                <div class="chat-box">
+                    <div id="chatMessages" class="chat-messages">
+                        <div class="msg ai">Hi there! 🍌 I am the Kids Vids TV AI assistant! Ask me about "ideas", "colors", "schedule", or just say "hi"! ✨</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" class="chat-input" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendAIMessage()">
+                        <button class="chat-send-btn" onclick="sendAIMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: POST & VIDEO IDEA GENERATOR -->
             <div id="ideasTab" class="tab-content hidden">
                 <h3>Video Concept Studio</h3>
                 <p class="sub-text">Need inspiration for your next viral video or community post? Click below to spark an idea!</p>
@@ -85,7 +422,7 @@
                 <button class="btn btn-primary" onclick="generateContentIdea()">Generate New Idea! 💡</button>
             </div>
 
-            <!-- TAB 3: CREATOR DOCUMENTATION HUBS -->
+            <!-- TAB 4: CREATOR DOCUMENTATION HUBS -->
             <div id="docsTab" class="tab-content hidden">
                 <h3>Production Documentation</h3>
                 <p class="sub-text">Channel guides, branding setups, and assets rules for Kids Vids TV.</p>
@@ -103,14 +440,10 @@
                             <li>Add the primary subscription anchor link inside the video description card.</li>
                         </ul>
                     </div>
-                    <div class="doc-card">
-                        <h5>📦 Technical Stack & Hosting</h5>
-                        <p>The frontend portal operates statically across local structures and Vercel cloud architecture. Core logic functions cleanly through asynchronous JavaScript loops and handles login tokens natively via Google Identity Services frameworks.</p>
-                    </div>
                 </div>
             </div>
 
-            <!-- SOCIAL MEDIA (Strictly Monospace Code Font) -->
+            <!-- SOCIAL MEDIA -->
             <div class="social-section">
                 <h3>Find us here:</h3>
                 <a href="https://www.youtube.com/@KidVids-TV?sub_confirmation=1" target="_blank" class="code-link">
@@ -121,6 +454,116 @@
 
     </div>
 
-    <script src="app.js"></script>
+    <!-- ================= LOGIC SCRIPT (JAVASCRIPT) ================= -->
+    <script>
+        const GOOGLE_CLIENT_ID = "43497632492-lqaquob6ii8443btq8fujqke9ln0dq8f.apps.googleusercontent.com";
+        let bananasCollected = 0;
+
+        const POST_IDEAS = [
+            { title: "🎬 Nano Banana Meets ABCs", desc: "An animated tracing run through the alphabet where our mascot slips over a giant letter 'B'." },
+            { title: "🎵 The Pastel Palette Sing-Along", desc: "A catchy 2-minute tune introducing kids to soft secondary colors via high-vibrancy music video cards." },
+            { title: "🎮 Name That Animal Sound Quiz", desc: "A fast-paced interactive sound guessing video featuring friendly, round cartoon zoo frames." }
+        ];
+
+        window.onload = function () {
+            if (!GOOGLE_CLIENT_ID.includes("YOUR_GOOGLE_CLIENT_ID_HERE")) {
+                google.accounts.id.initialize({ 
+                    client_id: GOOGLE_CLIENT_ID, 
+                    callback: handleCredentialResponse,
+                    ux_mode: "redirect"
+                });
+                google.accounts.id.renderButton(document.getElementById("googleBtnParent"), { theme: "outline", size: "large", shape: "pill", text: "signin_with" });
+            } else {
+                document.getElementById("googleBtnParent").innerHTML = "<p style='color:grey; font-size:0.8rem;'>[Add Client ID to activate Google Login]</p>";
+            }
+        };
+
+        function handleCredentialResponse(response) {
+            try {
+                const base64Url = response.credential.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                showDashboard(JSON.parse(jsonPayload).name);
+            } catch (e) { console.error(e); }
+        }
+
+        function handleGuestLogin() { showDashboard("Awesome Guest Explorer"); }
+
+        function showDashboard(username) {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('mainPage').classList.remove('hidden');
+            document.getElementById('welcomeTitle').innerHTML = `Hi <span class="highlight-pink">${username}</span>, Welcome to Kids Vids TV!`;
+            confetti({ particleCount: 100, spread: 60, colors: ['#ffe5ec', '#fff9c4', '#b3e5fc'] });
+        }
+
+        function handleLogout() {
+            document.getElementById('mainPage').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(`${tabName}Tab`).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+        }
+
+        function generateContentIdea() {
+            const randomIdx = Math.floor(Math.random() * POST_IDEAS.length);
+            const selectedIdea = POST_IDEAS[randomIdx];
+            document.getElementById('ideaTitle').innerText = selectedIdea.title;
+            document.getElementById('ideaDesc').innerText = selectedIdea.desc;
+            confetti({ particleCount: 20, spread: 30, origin: { y: 0.8 } });
+        }
+
+        function triggerMascotReward() {
+            bananasCollected += 5;
+            document.getElementById('bananaCount').innerText = bananasCollected;
+            document.getElementById('rewardMessage').innerText = "Earned +5 Banana tokens! 🍌";
+            if(bananasCollected > 15) document.getElementById('levelCount').innerText = "Master Animator 👑";
+            confetti({ particleCount: 30, angle: 90, spread: 45 });
+        }
+
+        // ================= NANO AI SIMULATION ENGINE =================
+        function sendAIMessage() {
+            const inputEl = document.getElementById('chatInput');
+            const msgContainer = document.getElementById('chatMessages');
+            const userText = inputEl.value.trim();
+            
+            if(!userText) return;
+
+            // 1. Render User message
+            const userDiv = document.createElement('div');
+            userDiv.className = "msg user";
+            userDiv.innerText = userText;
+            msgContainer.appendChild(userDiv);
+            
+            inputEl.value = ""; // clear box
+            
+            // 2. Compute AI response rules
+            let replyText = "Bananatastic! 🍌 I'm not sure about that one, but keep creating bright pastel adventures! ✨";
+            const lowerText = userText.toLowerCase();
+
+            if (lowerText.includes('hi') || lowerText.includes('hello')) {
+                replyText = "Hi friend! 🍌 Ready to make some magical videos today? Let's spread some happiness! ✨";
+            } else if (lowerText.includes('ideas') || lowerText.includes('video') || lowerText.includes('post')) {
+                replyText = "Ooh, check out our 'Ideas' tab right next to this chat window to instantly grab a viral concept! 💡";
+            } else if (lowerText.includes('colors') || lowerText.includes('pastel')) {
+                replyText = "Remember our design rule: Always use bright pastel colors with perfectly rounded corners! No sharp lines! 🎨";
+            } else if (lowerText.includes('schedule') || lowerText.includes('youtube')) {
+                replyText = "We are establishing our big push for Kids Vids TV right now! Keep check lists up to date! 🎬";
+            }
+
+            // 3. Render AI reply with a tiny delay
+            setTimeout(() => {
+                const aiDiv = document.createElement('div');
+                aiDiv.className = "msg ai";
+                aiDiv.innerText = replyText;
+                msgContainer.appendChild(aiDiv);
+                msgContainer.scrollTop = msgContainer.scrollHeight; // Auto scroll down
+            }, 400);
+        }
+    </script>
 </body>
 </html>
